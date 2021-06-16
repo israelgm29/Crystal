@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Clientes"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <nav class="uk-navbar-container uk-margin-bottom uk-navbar-transparent" uk-navbar="mode: click">
+                    <div class="uk-navbar-left">
+
+                        <ul class="uk-navbar-nav">
+                            <ul class="uk-iconnav">
+                                <li>
+                                    <h:link  outcome="/index" value="Atras">
+                                        <span class=" uk-margin-small-right uk-text-primary" uk-icon="icon: chevron-left; ratio: 1"></span>
+                                    </h:link>
+                                </li>
+                                <li>
+                                    <a href="#NuevoBenef" uk-toggle="">
+                                       Añadir Nuevo <span class=" uk-margin-small-right uk-text-primary" uk-tooltip="Nuevo Beneficiario"  uk-icon="icon: plus; ratio: 1"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+
+                    </div>
+                    <div class="uk-navbar-right">
+                           <span class="uk-label uk-label-success">
+                        <h:outputText  value=" Datos Totales #{beneficiaryController.pagination.pageFirstItem + 1}..#{beneficiaryController.pagination.pageLastItem + 1}/#{beneficiaryController.pagination.itemsCount}"/>&nbsp;
+                        <h:commandLink action="#{beneficiaryController.previous}" value="#{bundle.Previous} #{beneficiaryController.pagination.pageSize}" rendered="#{beneficiaryController.pagination.hasPreviousPage}"/>&nbsp;
+                        <h:commandLink action="#{beneficiaryController.next}" value="#{bundle.Next} #{beneficiaryController.pagination.pageSize}" rendered="#{beneficiaryController.pagination.hasNextPage}"/>&nbsp;
+
+                    </span>
+                    </div>
+                  
+                </nav>
+                <div uk-alert="">
+                    <a class="uk-alert-success uk-alert-close " uk-close=""></a>
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                </div>
+                <h:outputText escape="false" value="#{bundle.ListBeneficiaryEmpty}" rendered="#{beneficiaryController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{beneficiaryController.items.rowCount > 0}">
+                   
+                    <table id="example" class="uk-table uk-table-hover uk-table-divider uk-table-small uk-text-small uk-text-emphasis" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DNI</th>
+                                <th>Apellidos</th>
+                                <th>Nombres</th>
+                                <th>Telefono</th>
+                                <th>Direccion</th>
+                                <th>Referencia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{beneficiaryController.items}" var="item">
+                                <tr>
+                                    <td> <h:outputText value="#{item.id}"/></td>
+                                    <td><h:outputText value="#{item.dni}"/></td>
+                                    <td><h:outputText value="#{item.lastname}"/></td>
+                                    <td><h:outputText value="#{item.firstname}"/></td>
+                                    <td><h:outputText value="#{item.telephone}"/></td>
+                                    <td> <h:outputText value="#{item.address}"/></td>
+                                    <td><h:outputText value="#{item.placereference}"/></td>
+                                    <td><h:commandLink action="#{beneficiaryController.prepareView}">
+                                            <span class=" uk-margin-small-right uk-text-primary fa fa-eye" uk-tooltip="Ver"></span>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{beneficiaryController.prepareEdit}">
+                                            <span class=" uk-margin-small-right uk-text-emphasis far fa-edit" uk-tooltip="Modificar"></span>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{beneficiaryController.destroy}">
+                                            <span class=" uk-margin-small-right uk-text-danger fas fa-trash" uk-tooltip="Eliminar" ></span>
+                                        </h:commandLink>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+            </h:form>
+            <div id="NuevoBenef" uk-modal="">
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+                    <button class="uk-modal-close-default" type="button" uk-close=""></button>
+                    <h2 class="uk-modal-title">Nuevo Beneficiario</h2>
+                    <h:form>
+                        <h:panelGrid columns="4" columnClasses="pt-3 ml-4">
+                           <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_lastname}" for="lastname" />
+                            <h:inputText class=" uk-input uk-form-width-medium uk-form-small" id="lastname" value="#{beneficiaryController.selected.lastname}" title="#{bundle.CreateBeneficiaryTitle_lastname}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_lastname}"/>
+                            <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_firstname}" for="firstname" />
+                            <h:inputText class="uk-input uk-form-width-medium uk-form-small" id="firstname" value="#{beneficiaryController.selected.firstname}" title="#{bundle.CreateBeneficiaryTitle_firstname}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_firstname}"/>
+                             <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_dni}" for="dni" />
+                            <h:inputText class="uk-input uk-form-width-medium uk-form-small" id="dni" value="#{beneficiaryController.selected.dni}" title="#{bundle.CreateBeneficiaryTitle_dni}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_dni}"/>
+                            <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_telephone}" for="telephone" />
+                            <h:inputText class="uk-input uk-form-width-medium uk-form-small" id="telephone" value="#{beneficiaryController.selected.telephone}" title="#{bundle.CreateBeneficiaryTitle_telephone}" />
+                            <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_address}" for="address" />
+                            <h:inputText class="uk-input uk-form-width-medium uk-form-small" id="address" value="#{beneficiaryController.selected.address}" title="#{bundle.CreateBeneficiaryTitle_address}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_address}"/>
+                            <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_placereference}" for="placereference" />
+                            <h:inputText class="uk-input uk-form-width-medium uk-form-small" id="placereference" value="#{beneficiaryController.selected.placereference}" title="#{bundle.CreateBeneficiaryTitle_placereference}" />
+                            <h:outputLabel value="#{bundle.CreateBeneficiaryLabel_villageid}" for="villageid" />
+                            <h:selectOneMenu class="uk-select uk-form-width-medium" id="villageid" value="#{beneficiaryController.selected.villageid}" title="#{bundle.CreateBeneficiaryTitle_village}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_villageid}">
+                                <f:selectItems value="#{villageController.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <br />
+                        <h:commandLink class="uk-button uk-button-primary uk-modal-close" action="#{beneficiaryController.create2}" 
+                                       value="#{bundle.CreateBeneficiarySaveLink}" actionListener="#{beneficiaryController.prepareList}">
+
+                        </h:commandLink>
+                      
+                    </h:form>
+                </div>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

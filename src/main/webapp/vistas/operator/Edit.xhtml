@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditOperatorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{operatorController.selected.id}" title="#{bundle.EditOperatorTitle_id}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_username}" for="username" />
+                    <h:inputText id="username" value="#{operatorController.selected.username}" title="#{bundle.EditOperatorTitle_username}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_username}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{operatorController.selected.password}" title="#{bundle.EditOperatorTitle_password}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_password}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{operatorController.selected.email}" title="#{bundle.EditOperatorTitle_email}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_dni}" for="dni" />
+                    <h:inputText id="dni" value="#{operatorController.selected.dni}" title="#{bundle.EditOperatorTitle_dni}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_dni}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_firstname}" for="firstname" />
+                    <h:inputText id="firstname" value="#{operatorController.selected.firstname}" title="#{bundle.EditOperatorTitle_firstname}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_firstname}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_lastname}" for="lastname" />
+                    <h:inputText id="lastname" value="#{operatorController.selected.lastname}" title="#{bundle.EditOperatorTitle_lastname}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_lastname}"/>
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_telephone}" for="telephone" />
+                    <h:inputText id="telephone" value="#{operatorController.selected.telephone}" title="#{bundle.EditOperatorTitle_telephone}" />
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_address}" for="address" />
+                    <h:inputText id="address" value="#{operatorController.selected.address}" title="#{bundle.EditOperatorTitle_address}" />
+                    <h:outputLabel value="#{bundle.EditOperatorLabel_roleid}" for="roleid" />
+                    <h:selectOneMenu id="roleid" value="#{operatorController.selected.roleid}" title="#{bundle.EditOperatorTitle_roleid}" required="true" requiredMessage="#{bundle.EditOperatorRequiredMessage_roleid}">
+                        <f:selectItems value="#{roleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{operatorController.update}" value="#{bundle.EditOperatorSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditOperatorViewLink}"/>
+                <br />
+                <h:commandLink action="#{operatorController.prepareList}" value="#{bundle.EditOperatorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditOperatorIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

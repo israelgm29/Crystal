@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListStatusTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <nav class="uk-navbar-container uk-margin-bottom uk-navbar-transparent" uk-navbar="mode: click">
+                    <div class="uk-navbar-left">
+                        <ul class="uk-iconnav">
+                            <li>
+                                <h:link  outcome="/index" value="Atras">
+                                    <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-icon="icon: chevron-left; ratio: 1"></span>
+                                </h:link>
+                            </li>
+                            <li>
+                                <a href="#modal-serv" uk-toggle="">
+                                    Nuevo <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-tooltip="Nuevo Servicio de Agua Potable"  uk-icon="icon: plus; ratio: 1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <span class="uk-label uk-label-success">
+                            <h:outputText value="Total de medidores : #{assignedController.pagination.itemsCount}"/>&nbsp;
+                        </span>  
+                    </div>
+                </nav>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListStatusEmpty}" rendered="#{statusController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{statusController.items.rowCount > 0}">
+                    <h:outputText value="#{statusController.pagination.pageFirstItem + 1}..#{statusController.pagination.pageLastItem + 1}/#{statusController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{statusController.previous}" value="#{bundle.Previous} #{statusController.pagination.pageSize}" rendered="#{statusController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{statusController.next}" value="#{bundle.Next} #{statusController.pagination.pageSize}" rendered="#{statusController.pagination.hasNextPage}"/>&nbsp;
+                    
+                     <table id="example" class="uk-table uk-table-hover uk-table-divider uk-table-small uk-text-small uk-text-emphasis" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th><h:outputText value="#{bundle.ListStatusTitle_id}"/></th>
+                                <th><h:outputText value="#{bundle.ListStatusTitle_name}"/></th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{statusController.items}" var="item">
+                            <tr>
+                                <td><h:outputText value="#{item.id}"/></td>
+                                <td><h:outputText value="#{item.name}"/></td>
+                                <td> <h:commandLink action="#{statusController.prepareView}">
+                                         <span class="uk-icon-button uk-margin-small-right uk-text-danger" uk-tooltip="Ver" uk-icon="check"></span>
+                                    </h:commandLink>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{statusController.prepareEdit}">
+                                         <span class="uk-icon-button uk-margin-small-right uk-text-danger" uk-tooltip="Editar" uk-icon="file-edit"></span>
+                                    </h:commandLink>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{statusController.destroy}">
+                                         <span class="uk-icon-button uk-margin-small-right uk-text-danger" uk-tooltip="Eliminar" uk-icon="trash"></span>
+                                    </h:commandLink>
+                                </td>
+                            </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{statusController.prepareCreate}" value="#{bundle.ListStatusCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListStatusIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

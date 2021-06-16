@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAssignedTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <nav class="uk-navbar-container uk-margin-bottom uk-navbar-transparent" uk-navbar="mode: click">
+                    <div class="uk-navbar-left">
+                        <ul class="uk-iconnav">
+                            <li>
+                                <h:link  outcome="/index" value="Atras">
+                                    <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-icon="icon: chevron-left; ratio: 1"></span>
+                                </h:link>
+                            </li>
+                            <li>
+                                <a href="#modal-serv" uk-toggle="">
+                                    Añadir Nueva Asignacion <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-tooltip="Nueva Asignacion de Medidor"  uk-icon="icon: plus; ratio: 1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <span class="uk-label uk-label-success">
+                            <h:outputText value="Total de medidores : #{assignedController.pagination.itemsCount}"/>&nbsp;
+                        </span>  
+                    </div>
+                </nav>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAssignedEmpty}" rendered="#{assignedController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{assignedController.items.rowCount > 0}">
+                    <table id="example" class="uk-table uk-table-hover uk-table-divider uk-table-small uk-text-small uk-text-emphasis" style="width:100%" >
+                        <thead>
+                            <tr>
+                                <th>USUARIO</th>
+                                <th>DEUDA</th>
+                                <th>FECHA DE ASIGNACION</th>
+                                <th>ESTADO</th>
+                                <th>N° MEDIDOR</th>
+                                <th>ACCIONES</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{assignedController.items}" var="item">
+                                <tr>
+                                    <td><h:outputText value="#{item.beneficiary.lastname} #{item.beneficiary.firstname}"/></td>
+                                    <td><h:outputText value="$ #{item.debt}"/></td>
+                                    <td> <h:outputText value="#{item.assignmentdate}">
+                                            <f:convertDateTime pattern=" dd/MMMMM/yyyy"/>
+                                        </h:outputText></td>
+                                    <td> 
+                                        <h:outputText styleClass="#{item.status == 'ENABLE' ? 'uk-label uk-label-success': 'uk-label uk-label-danger'}" value="#{item.status}"/>
+                                    </td>
+
+                                    <td><h:outputText value="#{item.measurer}"/></td>
+                                    <td>  <h:commandLink action="#{assignedController.prepareView}">
+                                            <span class="uk-margin-small-right uk-text-primary fa fa-eye" uk-tooltip="Ver" ></span>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{assignedController.prepareEdit}">
+                                            <span class="uk-margin-small-right uk-text-emphasis far fa-edit" uk-tooltip="Editar" ></span>
+                                        </h:commandLink>
+                                        <h:outputText value=" "/>
+                                        <h:commandLink action="#{assignedController.destroy}">
+                                            <span class="uk-margin-small-right uk-text-danger fas fa-trash" uk-tooltip="Eliminar"></span>
+                                        </h:commandLink>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+
+                </h:panelGroup>
+                <div id="modal-serv" uk-modal="">
+                    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-text-small">
+                        <h2 class="uk-modal-title">Nueva Asignacion de Medidor</h2>
+                        <h:form class="uk-form-horizontal uk-margin-large">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="#{bundle.CreateAssignedLabel_assignmentdate}" for="assignmentdate" />
+                                <h:inputText class="uk-input" id="assignmentdate" value="#{assignedController.selected.assignmentdate}" title="#{bundle.CreateAssignedTitle_assignmentdate}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_assignmentdate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:inputText>
+                                <h:outputLabel value="#{bundle.CreateAssignedLabel_status}" for="status" />
+                                <h:inputText class="uk-input" id="status" value="#{assignedController.selected.status}" title="#{bundle.CreateAssignedTitle_status}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_status}"/>
+                                <h:outputLabel value="#{bundle.CreateAssignedLabel_beneficiary}" for="beneficiary" />
+                                <h:selectOneMenu id="beneficiary" value="#{assignedController.selected.beneficiary}" title="#{bundle.CreateAssignedTitle_beneficiary}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_beneficiary}">
+                                    <f:selectItems value="#{beneficiaryController.itemsAvailableSelectOne}"/>
+                                </h:selectOneMenu>
+                                <h:outputLabel value="#{bundle.CreateAssignedLabel_measurer}" for="measurer" />
+                                <h:selectOneMenu id="measurer" value="#{assignedController.selected.measurer}" title="#{bundle.CreateAssignedTitle_measurer}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_measurer}">
+                                    <f:selectItems value="#{measurerController.itemsAvailableSelectOne}"/> 
+
+                                </h:selectOneMenu>
+                                <h:outputLabel value="#{bundle.CreateAssignedLabel_debt}" for="debt" />
+                                <h:inputText disabled="true" class="uk-input" id="debt" value="#{assignedController.selected.debt}" title="#{bundle.CreateAssignedTitle_debt}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_debt}"/>
+
+                            </h:panelGrid>
+
+                        </h:form>
+                    </div>
+                </div>
+                <br />
+                <h:commandLink action="#{assignedController.prepareCreate}" value="#{bundle.ListAssignedCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAssignedIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

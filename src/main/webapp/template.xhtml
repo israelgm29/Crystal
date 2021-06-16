@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title><ui:insert name="title">SIGAP</ui:insert></title>
+        <link href="#{resource['images/logo.png']}" rel="icon" type="image/png" sizes="32x32"/>
+        <h:outputStylesheet library="css" name="uikit.min.css"/>
+        <h:outputStylesheet library="css" name="mdb.min.css"/>
+        <h:outputStylesheet library="css" name="dataTables.uikit.min.css"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputStylesheet library="css" name="all.css"/>
+        <h:outputStylesheet library="css" name="vendor.bundle.base.css"/>
+        <h:outputScript library="js" name="uikit.min.js"/>
+        <h:outputScript library="js" name="uikit-icons.min.js"/>
+        <h:outputScript library="js" name="jquery-3.5.1.js"/>
+        <h:outputScript library="js" name="jquery.dataTables.min.js"/>
+        <h:outputScript library="js" name="dataTables.uikit.min.js"/>
+       
+        
+
+    </h:head>
+
+    <h:body>
+        <div class="container-scroller">
+            <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                    <h:graphicImage  value="#{resource['images/Logo2.png']}"/>
+                    <a class="navbar-brand brand-logo-mini" href=""></a>
+                </div>
+                <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="search-field d-none d-md-block">
+
+                    </div>
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <div class="nav-profile-img">
+                                    <h:graphicImage  value="#{resource['images/logo.png']}"/>
+                                    <span class="availability-status online"></span>
+                                </div>
+                                <div class="nav-profile-text">
+                                    <p class="mb-1 text-black">#{user.firstname} #{user.lastname}</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-recycle mr-2 text-success"></i>Activity Log </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt mr-2 text-primary"></i> Signout </a>
+                            </div>
+                        </li>
+                        <li class="nav-item d-none d-lg-block full-screen-link">
+                            <a class="nav-link">
+                                <i class="fas fa-expand" id="fullscreen-button"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-mail-bulk"></i>
+                                <span class="count-symbol bg-warning"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                <h6 class="p-3 mb-0">Messages</h6>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <h:graphicImage  value="#{resource['images/logoLog.png']}"/>
+                                    </div>
+                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
+                                        <p class="text-gray mb-0"> 1 Minutes ago </p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+
+                                    </div>
+                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
+                                        <p class="text-gray mb-0"> 15 Minutes ago </p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="p-3 mb-0 text-center">4 new messages</h6>
+                            </div>
+                        </li>
+
+                        <li class="nav-item nav-settings d-none d-lg-block">
+                            <a class="nav-link" href="#">
+                                <i class="fa fa-power-off"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                </div>
+            </nav>
+            <div class="container-fluid page-body-wrapper" rendered="#{not empty user}">
+                <!-- partial:partials/_sidebar.html -->
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                    <ul class="nav">
+                        <li class="nav-item nav-profile">
+                            <a href="#" class="nav-link">
+                                <div class="nav-profile-image">
+                                    <h:graphicImage  value="#{resource['images/logo.png']}"/>
+                                    <span class="login-status online"></span>
+                                    <!--change to offline or busy as needed-->
+                                </div>
+                                <div class="nav-profile-text d-flex flex-column">
+                                    <span class="font-weight-bold mb-2">#{user.firstname}</span>
+                                    <span class="text-secondary text-small">Cuenta: #{user.roleid}</span>
+                                </div>
+                                <i class="fa fa-award text-success nav-profile-badge"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.xtml">
+                                <i class="fa fa-home"></i>
+                                <span class="pl-5 menu-title">Dashboard</span>
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#balance" aria-expanded="false" aria-controls="balance">
+                               <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Facturas</span>
+                                <i class="menu-arrow"></i>
+                               
+                            </a>
+                            <div class="collapse" id="balance">
+                                <ul class="nav flex-column sub-menu">
+                                    
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/invoice/List" > Facturas </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Balance Diario </h:link></li>
+                                  
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/vistas/operator/List">
+                                <i class="fa fa-laptop-code menu-icon"></i>
+                                <span class="pl-5 menu-title">Administracion</span>
+                            </h:link>
+                        </li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/vistas/beneficiary/List">
+                                <i class="fa fa-users menu-icon"></i>
+                                <span class="pl-5 menu-title">Clientes</span>
+                            </h:link>
+                        </li>
+                        
+                          <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#medidores" aria-expanded="false" aria-controls="medidores">
+                               <i class="fa fa-faucet menu-icon"></i><span class="pl-5 menu-title">Medidores</span>
+                                <i class="menu-arrow"></i>
+                               
+                            </a>
+                            <div class="collapse" id="medidores">
+                                <ul class="nav flex-column sub-menu">
+                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/measurer/List" > Lista de Medidores </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/assigned/List" > Asignacion de Medidores </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/uptake/List" > Medidas </h:link></li>
+                                  
+                                </ul>
+                            </div>
+                        </li>
+
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#service" aria-expanded="false" aria-controls="service">
+                               <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Servicios</span>
+                                <i class="menu-arrow"></i>
+                               
+                            </a>
+                            <div class="collapse" id="service">
+                                <ul class="nav flex-column sub-menu">
+                                    
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/sap/List" > Tipos de Servicio </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Otros Servicios </h:link></li>
+                                  
+                                </ul>
+                            </div>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#reportes" aria-expanded="false" aria-controls="reportes">
+                               <i class="far fa-file-pdf"></i><span class="pl-5 menu-title">Reportes</span>
+                                <i class="menu-arrow"></i>
+                               
+                            </a>
+                            <div class="collapse" id="reportes">
+                                <ul class="nav flex-column sub-menu">
+                                    
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/sap/List" > Tipos de Servicio </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Otros Servicios </h:link></li>
+                                  
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- partial -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"><ui:insert name="title">Default Title</ui:insert></h4>
+                                <p>
+                                    <ui:insert name="body">Default Body</ui:insert>
+                                </p> 
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- content-wrapper ends -->
+                    <!-- partial -->
+                </div>
+
+                <!-- main-panel ends -->
+            </div>
+            <!-- partial:partials/_footer.html -->
+            <footer class="footer">
+                <div class="container-fluid clearfix">
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
+                </div>
+            </footer>
+        </div>
+
+        <!-- plugins:js -->
+         <h:outputScript library="js" name="mdb.min.js"/>
+        <h:outputScript library="js" name="vendor.bundle.base.js"/>
+        <h:outputScript library="js" name="Chart.min.js"/>
+        <h:outputScript library="js" name="off-canvas.js"/>
+        <h:outputScript library="js" name="hoverable-collapse.js"/>
+        <h:outputScript library="js" name="misc.js"/>
+        <h:outputScript library="js" name="dashboard.js"/>
+        <h:outputScript library="js" name="todolist.js"/>
+        <h:outputScript library="js" name="all.js"/>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_",
+                        "zeroRecords": "No se han encontrado datos",
+                        "info": "Mostrando pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No records available",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search": "Buscar",
+                    }
+                });
+            });
+        </script>
+        <script>
+            if (window.history.replaceState) { // verificamos disponibilidad
+                window.history.replaceState(null, null, window.location.href);
+            }
+        </script>
+
+    </h:body>
+
+</html>

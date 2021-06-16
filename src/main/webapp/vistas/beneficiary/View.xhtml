@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewBeneficiaryTitle} : #{beneficiaryController.selected.lastname} 
+                          #{beneficiaryController.selected.firstname} "></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h3> DATOS </h3>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_id}"/>
+                    <h:outputText value="#{beneficiaryController.selected.id}" title="#{bundle.ViewBeneficiaryTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_dni}"/>
+                    <h:outputText value="#{beneficiaryController.selected.dni}" title="#{bundle.ViewBeneficiaryTitle_dni}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_lastname}"/>
+                    <h:outputText value="#{beneficiaryController.selected.lastname}" title="#{bundle.ViewBeneficiaryTitle_lastname}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_firstname}"/>
+                    <h:outputText value="#{beneficiaryController.selected.firstname}" title="#{bundle.ViewBeneficiaryTitle_firstname}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_telephone}"/>
+                    <h:outputText value="#{beneficiaryController.selected.telephone}" title="#{bundle.ViewBeneficiaryTitle_telephone}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_address}"/>
+                    <h:outputText value="#{beneficiaryController.selected.address}" title="#{bundle.ViewBeneficiaryTitle_address}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_placereference}"/>
+                    <h:outputText value="#{beneficiaryController.selected.placereference}" title="#{bundle.ViewBeneficiaryTitle_placereference}"/>
+                    <h:outputText value="#{bundle.ViewBeneficiaryLabel_villageid}"/>
+                    <h:outputText value="#{beneficiaryController.selected.villageid.name}" title="#{bundle.ViewBeneficiaryTitle_villageid}"/>
+                     
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{beneficiaryController.destroyAndView}" value="#{bundle.ViewBeneficiaryDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewBeneficiaryEditLink}"/>
+                <br />
+                <h:commandLink action="#{beneficiaryController.prepareCreate}" value="#{bundle.ViewBeneficiaryCreateLink}" />
+                <br />
+                <h:commandLink action="#{beneficiaryController.prepareList}" value="#{bundle.ViewBeneficiaryShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewBeneficiaryIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

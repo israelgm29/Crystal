@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBeneficiaryTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                <h:form class="uk-form-stacked">
+
+                    <div class="uk-child-width-1-1\@l uk-text-center " uk-grid="">
+                        <div class="uk-align-center">
+                            <div class="uk-margin ">
+                                <h:outputLabel class="uk-form-label " value="#{bundle.CreateBeneficiaryLabel_lastname}" for="id" />
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon" uk-icon="icon: tag"></span>                           
+                                    <input id="id" class="uk-input uk-form-width-large" value="#{beneficiaryController.selected.lastname}" title="#{bundle.CreateBeneficiaryTitle_lastname}" required="" />
+                                </div>
+                            </div>
+                            <div class="uk-margin">
+                                <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_firstname}" for="id" />
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon" uk-icon="icon: tag"></span>                           
+                                    <input id="id" class="uk-input uk-form-width-large" value="#{beneficiaryController.selected.firstname}" title="#{bundle.CreateBeneficiaryTitle_firstname}" required="" />
+                                </div>
+                            </div>
+
+                            <div class="uk-margin">
+                                <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_dni}" for="id" />
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon" uk-icon="icon: credit-card"></span>                           
+                                    <input id="id" class="uk-input uk-form-width-large" value="#{beneficiaryController.selected.dni}" title="#{bundle.CreateBeneficiaryTitle_dni}" required="" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="uk-child-width-1-2 uk-text-center" uk-grid="">
+                            <div>
+                                <div class="uk-margin">
+                                    <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_address}" for="id" />
+                                    <div class="uk-inline">
+                                        <span class="uk-form-icon" uk-icon="icon: location"></span>                           
+                                        <input id="id" class="uk-input " value="#{beneficiaryController.selected.address}" title="#{bundle.CreateBeneficiaryTitle_address}" required="" />
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin">
+                                    <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_telephone}" for="id" />
+                                    <div class="uk-inline">
+                                        <span class="uk-form-icon" uk-icon="icon: phone"></span>                           
+                                        <input id="id" class="uk-input" value="#{beneficiaryController.selected.telephone}" title="#{bundle.CreateBeneficiaryTitle_telephone}" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="uk-margin">
+                                    <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_placereference}" for="id" />
+                                    <div class="uk-inline">
+                                        <span class="uk-form-icon" uk-icon="icon: bell"></span>                           
+                                        <input id="id" class="uk-input" value="#{beneficiaryController.selected.placereference}" title="#{bundle.CreateBeneficiaryTitle_placereference}" required="" />
+                                    </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <h:outputLabel class="uk-form-label" value="#{bundle.CreateBeneficiaryLabel_villageid}" for="id" />
+                                    <div class="uk-inline">                
+                                        <h:selectOneMenu class="uk-select uk-form-width-medium" id="villageid" value="#{beneficiaryController.selected.villageid}" title="#{bundle.CreateBeneficiaryTitle_villageid}" required="true" requiredMessage="#{bundle.CreateBeneficiaryRequiredMessage_villageid}">
+                                            <f:selectItems value="#{villageController.itemsAvailableSelectOne}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </h:form>
+                <h:form><h:commandLink action="#{beneficiaryController.create}" value="#{bundle.CreateBeneficiarySaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{beneficiaryController.prepareList}" value="#{bundle.CreateBeneficiaryShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBeneficiaryIndexLink}"/></h:form>
+                
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

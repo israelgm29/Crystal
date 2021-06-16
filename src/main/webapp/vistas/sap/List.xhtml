@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Servicios de Agua Potable"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <nav class="uk-navbar-container uk-margin-bottom uk-navbar-transparent" uk-navbar="mode: click">
+                    <div class="uk-navbar-left">
+                        <ul class="uk-iconnav">
+                            <li>
+                                <h:link  outcome="/index" value="Atras">
+                                    <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-icon="icon: chevron-left; ratio: 1"></span>
+                                </h:link>
+                            </li>
+                            <li>
+                                <a href="#modal-serv" uk-toggle="">
+                                    Nuevo <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-tooltip="Nuevo Servicio de Agua Potable"  uk-icon="icon: plus; ratio: 1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <span class="uk-label uk-label-success">
+                            <h:outputText value="Total de medidores : #{assignedController.pagination.itemsCount}"/>&nbsp;
+                        </span>  
+                    </div>
+                </nav>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListSapEmpty}" rendered="#{sapController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{sapController.items.rowCount > 0}">
+                    <h:outputText value="#{sapController.pagination.pageFirstItem + 1}..#{sapController.pagination.pageLastItem + 1}/#{sapController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{sapController.previous}" value="#{bundle.Previous} #{sapController.pagination.pageSize}" rendered="#{sapController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{sapController.next}" value="#{bundle.Next} #{sapController.pagination.pageSize}" rendered="#{sapController.pagination.hasNextPage}"/>&nbsp;
+                    
+                    <table id="example" class="uk-table uk-table-hover uk-table-divider uk-table-small uk-text-small uk-text-emphasis" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo de Servicio</th>
+                                <th>Volumen Base</th>
+                                <th>Precio Base</th>
+                                <th>Precio Extra</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{sapController.items}" var="item">
+                            <tr>
+                                <td><h:outputText value="#{item.id}"/></td>
+                                <td><h:outputText value="#{item.name}"/></td>
+                                <td><h:outputText value="#{item.basevolume} m3"/></td>
+                                <td><h:outputText value="$ #{item.baseprice}"/></td>
+                                <td><h:outputText value="$ #{item.extraprice}"/></td>
+                                <td> <h:commandLink action="#{sapController.prepareView}">
+                                    <span class=" uk-margin-small-right uk-text-primary fa fa-eye" uk-tooltip="Ver" ></span>
+                                    </h:commandLink>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{sapController.prepareEdit}">
+                                    <span class="uk-margin-small-right uk-text-emphasis far fa-edit" uk-tooltip="Editar" ></span>
+                                    </h:commandLink>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{sapController.destroy}">
+                                        <span class="uk-margin-small-right uk-text-danger fas fa-trash" uk-tooltip="Eliminar"></span>
+                                    </h:commandLink>
+                                </td>
+                            </tr>
+                            </ui:repeat>   
+                        </tbody>
+                    </table>
+
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{sapController.prepareCreate}" value="#{bundle.ListSapCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListSapIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

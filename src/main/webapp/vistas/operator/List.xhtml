@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOperatorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form >
+                <nav class="uk-navbar-container uk-margin-bottom uk-navbar-transparent" uk-navbar="mode: click">
+                    <div class="uk-navbar-left">
+                        <ul class="uk-iconnav">
+                            <li>
+                                <h:link  outcome="/index" value="Atras">
+                                    <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-icon="icon: chevron-left; ratio: 1"></span>
+                                </h:link>
+                            </li>
+                            <li>
+                                <a href="#newOperator" uk-toggle="">
+                                    Nuevo Rol de Usuario <span class="uk-icon-button uk-margin-small-right uk-text-primary" uk-tooltip="Nuevo Rol"  uk-icon="icon: plus; ratio: 1"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <span class="uk-label uk-label-success">
+                            <h:outputText value="Total de Usuarios del Sistema : #{operatorController.pagination.itemsCount}"/>&nbsp;
+                        </span>  
+                    </div>
+                </nav>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOperatorEmpty}" rendered="#{operatorController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{operatorController.items.rowCount > 0}">
+
+                    <table id="example" class="uk-table uk-table-hover uk-table-striped uk-text-small" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>E-mail</th>
+                                <th>DNI</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Telefono</th>
+                                <th>Dirección</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{operatorController.items}" var="item">
+                                <tr>
+                                    <td> <h:outputText value="#{item.id}"/></td>
+                                    <td> <h:outputText value="#{item.username}"/></td>
+                                    <td> <h:outputText value="#{item.email}"/></td>
+                                    <td> <h:outputText value="#{item.dni}"/></td>
+                                    <td> <h:outputText value="#{item.firstname}"/></td>
+                                    <td> <h:outputText value="#{item.lastname}"/></td>
+                                    <td> <h:outputText value="#{item.telephone}"/></td>
+                                    <td> <h:outputText value="#{item.address}"/></td>
+                                    <td> 
+                                        <h:commandLink action="#{operatorController.prepareView}">
+                                            <span class=" uk-margin-small-right uk-text-primary fa fa-eye" uk-tooltip="Ver"></span>
+                                        </h:commandLink>
+                                        <h:commandLink action="#{operatorController.prepareEdit}">
+                                            <span class=" uk-margin-small-right uk-text-emphasis far fa-edit" uk-tooltip="Editar"></span>
+                                        </h:commandLink>
+                                        <h:commandLink action="#{operatorController.destroy}">
+                                            <span class=" uk-margin-small-right uk-text-danger fas fa-trash" uk-tooltip="Borrar" ></span>
+                                        </h:commandLink>
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
+                </h:panelGroup>
+
+            </h:form>
+            <div id="newOperator" class="uk-modal-container uk-text-small" uk-modal="">
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical ">
+                    <button class="uk-modal-close-default" type="button" uk-close=""></button>
+
+                    <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">Nuevo Usuario</h2>
+                    </div>
+                     <div class="uk-modal-body">
+                    <h:form>
+                        <h:panelGrid columns="6" cellpadding="5" >
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_username}" for="username" />
+                            <h:inputText class="form-control" id="username" value="#{operatorController.selected.username}" title="#{bundle.CreateOperatorTitle_username}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_username}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_firstname}" for="firstname" />
+                            <h:inputText class="form-control" id="firstname" value="#{operatorController.selected.firstname}" title="#{bundle.CreateOperatorTitle_firstname}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_firstname}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_lastname}" for="lastname" />
+                            <h:inputText class="form-control" id="lastname" value="#{operatorController.selected.lastname}" title="#{bundle.CreateOperatorTitle_lastname}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_lastname}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_password}" for="password" />
+                            <h:inputText class="form-control" id="password" value="#{operatorController.selected.password}" title="#{bundle.CreateOperatorTitle_password}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_password}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_email}" for="email" />
+                            <h:inputText class="form-control" id="email" value="#{operatorController.selected.email}" title="#{bundle.CreateOperatorTitle_email}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_email}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_dni}" for="dni" />
+                            <h:inputText class="form-control" id="dni" value="#{operatorController.selected.dni}" title="#{bundle.CreateOperatorTitle_dni}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_dni}"/>
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_telephone}" for="telephone" />
+                            <h:inputText class="form-control" id="telephone" value="#{operatorController.selected.telephone}" title="#{bundle.CreateOperatorTitle_telephone}" />
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_address}" for="address" />
+                            <h:inputText class="form-control" id="address" value="#{operatorController.selected.address}" title="#{bundle.CreateOperatorTitle_address}" />
+                            <h:outputLabel value="#{bundle.CreateOperatorLabel_roleid}" for="roleid" />
+                            <h:selectOneMenu class="form-control" id="roleid" value="#{operatorController.selected.roleid}" title="#{bundle.CreateOperatorTitle_roleid}" required="true" requiredMessage="#{bundle.CreateOperatorRequiredMessage_roleid}">
+                                <f:selectItems value="#{roleController.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <br/>
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                        <h:commandLink class="uk-button uk-button-primary" action="#{operatorController.create}" value="#{bundle.CreateOperatorSaveLink}" />
+      
+                    </h:form>
+                     </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
