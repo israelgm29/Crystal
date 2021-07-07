@@ -42,7 +42,9 @@
                     </h:panelGroup>
                 </div>
                 <h:outputText escape="false" value="#{bundle.ListAnotherserviceEmpty}" rendered="#{anotherserviceController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{anotherserviceController.items.rowCount > 0}">
+                <div class="row">
+                    <div class="col-6">
+                   <h:panelGroup rendered="#{anotherserviceController.items.rowCount > 0}">
                     <table id="example" class="uk-table uk-table-hover uk-table-divider uk-table-small uk-text-small uk-text-emphasis" style="width:100%">
                         <thead>
                             <tr>
@@ -74,7 +76,12 @@
                             </ui:repeat>
                         </tbody>
                     </table>
-                </h:panelGroup>
+                </h:panelGroup>  
+                    
+                </div>
+                </div>
+                
+               
                 <br />
 
             </h:form>

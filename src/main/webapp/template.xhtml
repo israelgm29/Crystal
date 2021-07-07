@@ -16,13 +16,14 @@
         <h:outputStylesheet library="css" name="style.css"/>
         <h:outputStylesheet library="css" name="all.css"/>
         <h:outputStylesheet library="css" name="vendor.bundle.base.css"/>
+        <h:outputStylesheet library="css" name="flatpickr.min.css"/>
         <h:outputScript library="js" name="uikit.min.js"/>
         <h:outputScript library="js" name="uikit-icons.min.js"/>
         <h:outputScript library="js" name="jquery-3.5.1.js"/>
         <h:outputScript library="js" name="jquery.dataTables.min.js"/>
         <h:outputScript library="js" name="dataTables.uikit.min.js"/>
-       
-        
+
+
 
     </h:head>
 
@@ -134,16 +135,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#balance" aria-expanded="false" aria-controls="balance">
-                               <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Facturas</span>
+                                <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Facturas</span>
                                 <i class="menu-arrow"></i>
-                               
+
                             </a>
                             <div class="collapse" id="balance">
                                 <ul class="nav flex-column sub-menu">
-                                    
+
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/invoice/List" > Facturas </h:link></li>
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Balance Diario </h:link></li>
-                                  
+
                                 </ul>
                             </div>
                         </li>
@@ -160,51 +161,51 @@
                                 <span class="pl-5 menu-title">Clientes</span>
                             </h:link>
                         </li>
-                        
-                          <li class="nav-item">
+
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#medidores" aria-expanded="false" aria-controls="medidores">
-                               <i class="fa fa-faucet menu-icon"></i><span class="pl-5 menu-title">Medidores</span>
+                                <i class="fa fa-faucet menu-icon"></i><span class="pl-5 menu-title">Medidores</span>
                                 <i class="menu-arrow"></i>
-                               
+
                             </a>
                             <div class="collapse" id="medidores">
                                 <ul class="nav flex-column sub-menu">
-                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/measurer/List" > Lista de Medidores </h:link></li>
+                                    <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/measurer/List" > Lista de Medidores </h:link></li>
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/assigned/List" > Asignacion de Medidores </h:link></li>
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/uptake/List" > Medidas </h:link></li>
-                                  
+
                                 </ul>
                             </div>
                         </li>
 
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#service" aria-expanded="false" aria-controls="service">
-                               <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Servicios</span>
+                                <i class="fas fa-hand-holding-water"></i> <span class="pl-5 menu-title">Servicios</span>
                                 <i class="menu-arrow"></i>
-                               
+
                             </a>
                             <div class="collapse" id="service">
                                 <ul class="nav flex-column sub-menu">
-                                    
+
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/sap/List" > Tipos de Servicio </h:link></li>
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Otros Servicios </h:link></li>
-                                  
+
                                 </ul>
                             </div>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#reportes" aria-expanded="false" aria-controls="reportes">
-                               <i class="far fa-file-pdf"></i><span class="pl-5 menu-title">Reportes</span>
+                                <i class="far fa-file-pdf"></i><span class="pl-5 menu-title">Reportes</span>
                                 <i class="menu-arrow"></i>
-                               
+
                             </a>
                             <div class="collapse" id="reportes">
                                 <ul class="nav flex-column sub-menu">
-                                    
+
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/sap/List" > Tipos de Servicio </h:link></li>
                                     <li class="nav-item"> <h:link class="nav-link" outcome="/vistas/anotherservice/List" > Otros Servicios </h:link></li>
-                                  
+
                                 </ul>
                             </div>
                         </li>
@@ -241,7 +242,7 @@
         </div>
 
         <!-- plugins:js -->
-         <h:outputScript library="js" name="mdb.min.js"/>
+        <h:outputScript library="js" name="mdb.min.js"/>
         <h:outputScript library="js" name="vendor.bundle.base.js"/>
         <h:outputScript library="js" name="Chart.min.js"/>
         <h:outputScript library="js" name="off-canvas.js"/>
@@ -250,7 +251,12 @@
         <h:outputScript library="js" name="dashboard.js"/>
         <h:outputScript library="js" name="todolist.js"/>
         <h:outputScript library="js" name="all.js"/>
+        <h:outputScript library="js" name="flatpickr.js"/>
         <script>
+            flatpickr("#installationdate", {
+                dateFormat: "d/m/Y"
+            }); // invocation without saving to a var
+// ...
             $(document).ready(function () {
                 $('#example').DataTable({
                     "language": {

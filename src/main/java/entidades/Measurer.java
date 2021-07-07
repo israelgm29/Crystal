@@ -157,7 +157,7 @@ public class Measurer implements Serializable {
 
     @Override
     public String toString() {
-        return  number ;
+        return  "entidades.Uptake[ id=" + id + " ]";
     }
 
 

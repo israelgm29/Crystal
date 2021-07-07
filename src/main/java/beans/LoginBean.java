@@ -5,7 +5,6 @@
  */
 package beans;
 
-
 import entidades.Operator;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -63,7 +62,13 @@ public class LoginBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (usuariologeado == null) {
-            context.addMessage(null, new FacesMessage("El usuario no existe, registrese para tener acceso al sistema"));
+           context.getPartialViewContext().getEvalScripts().add(" swal({\n" +
+"                    title: \"Atencion\",\n" +
+"                    icon: \"warning\",\n" +
+"                    text: \" cha madre oe\",\n" +
+"                    buttons: true,\n" +
+"                    dangerMode: true,\n" +
+"                });");
             username = null;
             password = null;
             return null;

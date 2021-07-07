@@ -13,7 +13,7 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            <h:form prependId="false">
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateMeasurerLabel_id}" for="id" />
                     <h:inputText id="id" value="#{measurerController.selected.id}" title="#{bundle.CreateMeasurerTitle_id}" required="true" requiredMessage="#{bundle.CreateMeasurerRequiredMessage_id}"/>
@@ -21,7 +21,7 @@
                     <h:inputText id="number" value="#{measurerController.selected.number}" title="#{bundle.CreateMeasurerTitle_number}" required="true" requiredMessage="#{bundle.CreateMeasurerRequiredMessage_number}"/>
                     <h:outputLabel value="#{bundle.CreateMeasurerLabel_installationdate}" for="installationdate" />
                     <h:inputText id="installationdate" value="#{measurerController.selected.installationdate}" title="#{bundle.CreateMeasurerTitle_installationdate}" required="true" requiredMessage="#{bundle.CreateMeasurerRequiredMessage_installationdate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateMeasurerLabel_sapid}" for="sapid" />
                     <h:selectOneMenu id="sapid" value="#{measurerController.selected.sapid}" title="#{bundle.CreateMeasurerTitle_sapid}" required="true" requiredMessage="#{bundle.CreateMeasurerRequiredMessage_sapid}">

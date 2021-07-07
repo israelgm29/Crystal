@@ -73,6 +73,7 @@ public class AssignedController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
+    
 
     public String prepareCreate() {
         current = new Assigned();
@@ -91,6 +92,14 @@ public class AssignedController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
+        }
+    }
+    public void tranferMeasurer(){
+        try {
+            int Beneficiaryid=current.getMeasurer().getId();
+            int MeasurerId=current.getBeneficiary().getId();
+            int row =getFacade().createAssigned(Beneficiaryid, MeasurerId);
+        } catch (Exception e) {
         }
     }
 

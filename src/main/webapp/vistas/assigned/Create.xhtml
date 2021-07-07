@@ -15,17 +15,7 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateAssignedLabel_assignedPK_id}" for="assignedPK_id" />
-                    <h:inputText id="assignedPK_id" value="#{assignedController.selected.assignedPK.id}" title="#{bundle.CreateAssignedTitle_assignedPK_id}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_assignedPK_id}"/>
-                    <h:outputLabel value="#{bundle.CreateAssignedLabel_debt}" for="debt" />
-                    <h:inputText id="debt" value="#{assignedController.selected.debt}" title="#{bundle.CreateAssignedTitle_debt}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_debt}"/>
-                    <h:outputLabel value="#{bundle.CreateAssignedLabel_assignmentdate}" for="assignmentdate" />
-                    <h:inputText id="assignmentdate" value="#{assignedController.selected.assignmentdate}" title="#{bundle.CreateAssignedTitle_assignmentdate}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_assignmentdate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateAssignedLabel_status}" for="status" />
-                    <h:inputText id="status" value="#{assignedController.selected.status}" title="#{bundle.CreateAssignedTitle_status}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_status}"/>
-                    <h:outputLabel value="#{bundle.CreateAssignedLabel_beneficiary}" for="beneficiary" />
+                     <h:outputLabel value="#{bundle.CreateAssignedLabel_beneficiary}" for="beneficiary" />
                     <h:selectOneMenu id="beneficiary" value="#{assignedController.selected.beneficiary}" title="#{bundle.CreateAssignedTitle_beneficiary}" required="true" requiredMessage="#{bundle.CreateAssignedRequiredMessage_beneficiary}">
                         <f:selectItems value="#{beneficiaryController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
@@ -35,7 +25,7 @@
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{assignedController.create}" value="#{bundle.CreateAssignedSaveLink}" />
+                <h:commandLink action="#{assignedController.tranferMeasurer()}" value="#{bundle.CreateAssignedSaveLink}" />
                 <br />
                 <br />
                 <h:commandLink action="#{assignedController.prepareList}" value="#{bundle.CreateAssignedShowAllLink}" immediate="true"/>
